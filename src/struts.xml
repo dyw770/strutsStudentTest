@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!--  <constant name="struts.ui.theme" value="Ajax"></constant> -->
+	<package name="action" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="myInterceptor" class="cn.dyw.interceptor.PrivilegeInterceptor">
+			</interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="myInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<action name="login" class="cn.dyw.action.UserAction" method="loginAction">
+			<result name="success">/news.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="input">/news_admin.jsp</result>
+		</action>
+		<action name="publish" class="cn.dyw.action.UserAction" method="publish">
+			
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success">/news_admin.jsp</result>
+			<result name="error">/news_admin.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="infoWirte" class="cn.dyw.action.UserAction" method="infoWrite">
+			
+			<result name="success">/news_admin.jsp</result>
+			<result name="error">/news_admin.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+	</package>
+</struts>
